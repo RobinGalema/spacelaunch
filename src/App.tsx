@@ -1,10 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import AppHeader from './components/app-header';
 
 function App() {
   return (
     <div className="App">
+      <AppHeader title='Space Launch Schedule'></AppHeader>
     </div>
   );
 }
