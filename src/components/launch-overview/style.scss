@@ -7,3 +7,31 @@
     justify-content: flex-start;
     flex-wrap: wrap;
 }
+
+.loading-container{
+    height: calc(90vh - 100px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .loader-icon{
+        svg{
+            width: 50px;
+            height: 50px;
+            color: #181818;
+            animation: spinner 1.5s ease-out infinite;
+            transition: all 150ms ease-out;
+        }
+    }
+}
+
+@keyframes spinner {
+    0%{
+        transform: rotate(0deg);
+    }
+
+    100%{
+        transform: rotate(360deg);
+    }
+}

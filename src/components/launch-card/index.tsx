@@ -1,5 +1,9 @@
 import React from "react";
 import './style.scss'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+
+var format = require('date-format');
 
 type Props = {
     data: any
@@ -8,24 +12,19 @@ type Props = {
 class LaunchCard extends React.Component<Props> {
     time : string;
     dateString : string;
+    timezoneOffset : string;
 
     constructor(props : Props){
         super(props);
         this.time = props.data.net;
         this.dateString = "";
-    }
-
-    formatDateString(date: Date){
-        const month = (date.getMonth() > 9) ? date.getMonth() : `0${date.getMonth()}`;
-        const day = (date.getDay() > 9) ? date.getDay() : `0${date.getDay()}`;
-        const hour = (date.getHours() > 9) ? date.getHours() : `0${date.getHours()}`;
-        const minute = (date.getMinutes() > 9) ? date.getMinutes() : `0${date.getMinutes()}`;
-        return `${day}-${month}-${date.getFullYear()} | ${hour}:${minute}`;
+        this.timezoneOffset = "";
     }
 
     componentDidMount() {
         const date = new Date(this.time);
-        this.dateString = this.formatDateString(date);
+        this.dateString = format('dd-MM-yyyy | hh:mm', date);
+        this.timezoneOffset = format('O', date);
     }
 
     render() {
@@ -34,9 +33,10 @@ class LaunchCard extends React.Component<Props> {
                 <div className="card-container">
                     <h3>{this.props.data.name}</h3>
                     <ul>
-                        <li className="launch-time">{this.dateString}</li>
+                        <li className="launch-time">{this.dateString} <span className="time-zone">GMT{this.timezoneOffset}</span></li>
                         <li>{this.props.data.rocket.configuration.name}</li>
                         {this.props.data.mission ? <li>{this.props.data.mission.name}</li> : null }
+                        <li className="location"><FontAwesomeIcon icon={faLocationDot} />{this.props.data.pad.name} |  <span className="base">{this.props.data.pad.location.name}</span></li>
                     </ul>
                 </div>
             </div>

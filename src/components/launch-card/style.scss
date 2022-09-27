@@ -27,6 +27,22 @@
                 &.launch-time{
                     font-weight: 700;
                     margin-bottom: 15px;
+
+                    span.time-zone{
+                        color: rgba(#1f1f1f, 0.5);
+                    }
+                }
+
+                &.location{
+                    margin-top: 15px;
+
+                    span.base{
+                        color: rgba(#1f1f1f, 0.75);
+                    }
+                    
+                    svg{
+                        margin-right: 10px;
+                    }
                 }
             }
         }
