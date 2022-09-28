@@ -9,6 +9,7 @@ h1, h2, h3, h4{
 p, a, span, h5, h6, li{
   font-family: 'Libre Franklin', sans-serif;
   margin: 0;
+  letter-spacing: 1px;
 }
 
 body, body > *{
@@ -17,7 +18,8 @@ body, body > *{
 }
 
 .container{
-  max-width: 1350px;
+  max-width: 1450px !important;
   margin: auto;
   padding: 0px 25px;
 }
+

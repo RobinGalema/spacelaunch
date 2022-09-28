@@ -1,48 +1,70 @@
 .launchcard-wrapper{
-    flex: 50%;
-    margin: 30px -10px;
-
     .card-container{
-        margin: -20px 25px;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
+        margin-bottom: 20px;
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-areas: 'image content content content';
+        border-radius: 15px;
+        background: darken($color: rgb(248, 249, 253), $amount: 1);
 
-        h3{
-            color: #181818;
+        .card-left{
+            grid-area: image;
+
+            .image-container{
+                width: 100%;
+                height: 100%;
+                background-position: top;
+                background-size: cover;
+                border-radius: 15px 0px 0px 15px;
+            }
         }
 
-        ul{
-            list-style: none;
-            padding: 0;
-            flex-grow: 1;
+        .card-right{
+            position: relative;
+            grid-area: content;
+            padding: 30px;
 
-            li{
-                margin: 5px 0px;
-                color: #1f1f1f;
-
-                &.launch-time{
-                    font-weight: 700;
-                    margin-bottom: 15px;
-
-                    span.time-zone{
-                        color: rgba(#1f1f1f, 0.5);
+            .content{
+                p{
+                    margin: 0px 0px 10px 0px;
+                }
+                
+                .title{
+                    h3{
+                        font-size: 22px;
+                        color: #100720;
+                        margin-bottom: 10px;
                     }
                 }
 
-                &.location{
-                    margin-top: 15px;
+                .time{
+                    margin-bottom: 20px;
+                    p{
+                        font-weight: 500;
+                        color: lighten($color: #100720, $amount: 5);
+                    }
+                }
 
-                    span.base{
-                        color: rgba(#1f1f1f, 0.75);
-                    }
-                    
+                .location{
                     svg{
-                        margin-right: 10px;
+                        margin-right: 5px;
+                        font-size: 18px;
+                        color: #E94560;
                     }
+                }
+            }
+
+            button.info{
+                border: none;
+                background: none;
+                position: absolute;
+                top: 25px;
+                right: 25px;
+
+                svg{
+                    color: #100720;
+                    font-size: 18px;
                 }
             }
         }

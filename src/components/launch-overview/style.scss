@@ -19,12 +19,40 @@
         svg{
             width: 50px;
             height: 50px;
-            color: #181818;
+            color: #100720;
             animation: spinner 1.5s ease-out infinite;
             transition: all 150ms ease-out;
         }
     }
 }
+
+.button-container{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+  
+    button{
+      background: darken($color: #f4f6fc, $amount: 5);
+      color: #100720;
+      font-weight: 600;
+      padding: 15px 45px;
+      border-radius: 15px;
+      border: none;
+      transition: all 250ms ease-out;
+
+      svg{
+        animation: spinner 1.5s ease-out infinite;
+        transition: all 150ms ease-out;
+      }
+      
+      &:hover{
+        //box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+        background: darken($color: #f4f6fc, $amount: 3.5);
+        transform: scale(1.05);
+      }
+    }
+  }
 
 @keyframes spinner {
     0%{
