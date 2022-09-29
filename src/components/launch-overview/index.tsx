@@ -18,11 +18,16 @@ class LaunchOverview extends React.Component<{}, any, Props>{
             isLoaded: false,
             items: [],
             nextUrl : null,
-            offsetLoading : false
+            offsetLoading : false,
+            programs : [],
+            filterValue : 0
         };
     }
 
     componentDidMount() {
+
+        this.loadPrograms('https://spacelaunchnow.me/api/ll/2.1.0/program/?format=json&limit=10&offset=0', []);
+        
         fetch("https://spacelaunchnow.me/api/ll/2.1.0/launch/upcoming/?format=json")
             .then(res => res.json())
             .then(
@@ -30,7 +35,7 @@ class LaunchOverview extends React.Component<{}, any, Props>{
                     this.setState({
                         isLoaded : true,
                         items: result.results,
-                        nextUrl : result.next
+                        nextUrl : result.next,
                     })
                 },
                 (error) => {
@@ -38,7 +43,7 @@ class LaunchOverview extends React.Component<{}, any, Props>{
                         isLoaded : true,
                         error : error.message
                     })
-                }
+                },
             )
     }
 
@@ -68,12 +73,73 @@ class LaunchOverview extends React.Component<{}, any, Props>{
             )
     }
 
+    loadPrograms = (url : string, previousResult : any) : any => {
+        return fetch(url)
+            .then(res => res.json())
+            .then(response => {
+                const result = [...previousResult, ...response.results]
+
+                if (response.next != null){
+                    return this.loadPrograms(response.next, (result));
+                }
+
+                this.setState({
+                    programs: result
+                });
+            })
+    }
+
+    loadWithFilter = (event : any) => {
+
+        const id = parseInt(event.target.value);
+        let filterString = (id === 0) ? '' : `?program=${id}`
+
+        fetch(`https://spacelaunchnow.me/api/ll/2.1.0/launch/upcoming${filterString}`)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded : true,
+                        items: result.results,
+                        nextUrl : result.next,
+                        filterValue : id
+                    })
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded : true,
+                        error : error.message
+                    })
+                },
+            )
+
+        this.setState({
+            isLoaded: false,
+            items: [],
+        })
+    }
+
 
     render() {
-        const { error, isLoaded, items, offsetLoading} = this.state;
+        const { error, isLoaded, items, offsetLoading, programs, filterValue} = this.state;
 
         return (
             <div className="container">
+                <div className="head-wrapper">
+                    <div className="subtitle-container">
+                        <h2>Upcoming launches</h2>
+                    </div>
+                    <div className="filter-container">
+                        <p>Filter on program:</p>
+                        <select value={filterValue} onChange={this.loadWithFilter}>
+                                <option value="0">Show All</option>
+                            {programs.map((program : any)=> (
+                                <option value={program.id} key={program.id}>{program.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
                 {error ?
                     <p>Something went wrong!</p> : !isLoaded ? (
                     <div className="loading-container">
