@@ -4,6 +4,7 @@ import LaunchCard from '../launch-card';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Row from 'react-bootstrap/Row';
+import FilterDropdown from '../filter-dropdown';
 
 type Props = {
 
@@ -19,15 +20,11 @@ class LaunchOverview extends React.Component<{}, any, Props>{
             items: [],
             nextUrl : null,
             offsetLoading : false,
-            programs : [],
             filterValue : 0
         };
     }
 
     componentDidMount() {
-
-        this.loadPrograms('https://spacelaunchnow.me/api/ll/2.1.0/program/?format=json&limit=10&offset=0', []);
-        
         fetch("https://spacelaunchnow.me/api/ll/2.1.0/launch/upcoming/?format=json")
             .then(res => res.json())
             .then(
@@ -73,22 +70,6 @@ class LaunchOverview extends React.Component<{}, any, Props>{
             )
     }
 
-    loadPrograms = (url : string, previousResult : any) : any => {
-        return fetch(url)
-            .then(res => res.json())
-            .then(response => {
-                const result = [...previousResult, ...response.results]
-
-                if (response.next != null){
-                    return this.loadPrograms(response.next, (result));
-                }
-
-                this.setState({
-                    programs: result
-                });
-            })
-    }
-
     loadWithFilter = (event : any) => {
 
         const id = parseInt(event.target.value);
@@ -121,7 +102,7 @@ class LaunchOverview extends React.Component<{}, any, Props>{
 
 
     render() {
-        const { error, isLoaded, items, offsetLoading, programs, filterValue} = this.state;
+        const { error, isLoaded, items, offsetLoading, filterValue, nextUrl} = this.state;
 
         return (
             <div className="container">
@@ -131,13 +112,9 @@ class LaunchOverview extends React.Component<{}, any, Props>{
                     </div>
                     <div className="filter-container">
                         <p>Filter on program:</p>
-                        <select value={filterValue} onChange={this.loadWithFilter}>
-                                <option value="0">Show All</option>
-                            {programs.map((program : any)=> (
-                                <option value={program.id} key={program.id}>{program.name}</option>
-                            ))}
-                        </select>
+                        <FilterDropdown filterValue={filterValue} onChange={this.loadWithFilter}></FilterDropdown>
                     </div>
+                    
                 </div>
 
                 {error ?
@@ -155,9 +132,11 @@ class LaunchOverview extends React.Component<{}, any, Props>{
                             ))}
                         </Row>
 
+                        {nextUrl ? (
                         <div className="button-container">
                             <button onClick={this.loadWithOffset}>{offsetLoading ? (<FontAwesomeIcon icon={faSpinner} />) : 'Load more'}</button>
                         </div>
+                        ) : null}
                     </div>
                 }
             </div>
