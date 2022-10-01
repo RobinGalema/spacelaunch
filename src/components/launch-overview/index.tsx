@@ -20,7 +20,8 @@ class LaunchOverview extends React.Component<{}, any, Props>{
             items: [],
             nextUrl : null,
             offsetLoading : false,
-            filterValue : 0
+            filterValue : 0,
+            favorites : []
         };
     }
 
@@ -42,6 +43,26 @@ class LaunchOverview extends React.Component<{}, any, Props>{
                     })
                 },
             )
+
+        this.loadFavorites();
+    }
+
+    loadFavorites = () => {
+        const favoriteIds = Array.from(JSON.parse(localStorage.getItem("favorites") || "{}"));
+        let elements : Array<any> = [];
+
+        Promise.all(favoriteIds.map((favorite) => {
+            fetch(`https://spacelaunchnow.me/api/ll/2.1.0/launch/${favorite}`)
+                .then(res => res.json())
+                .then((result) => {
+                    elements.push(result);
+                })
+                    .then(() => {
+                    this.setState({favorites : elements});
+                    console.log(this.state.favorites);
+                })
+        }))
+        
     }
 
     loadWithOffset = () => {
@@ -102,10 +123,19 @@ class LaunchOverview extends React.Component<{}, any, Props>{
 
 
     render() {
-        const { error, isLoaded, items, offsetLoading, filterValue, nextUrl} = this.state;
+        const { error, isLoaded, items, offsetLoading, filterValue, nextUrl, favorites} = this.state;
 
         return (
             <div className="container">
+                <div className="favorites-wrapper">
+                    <h2>{(favorites.length > 0) ? 'Favorites' : null}</h2>
+                    <Row>
+                    {favorites.map((favorite :any)=> (
+                        <LaunchCard data={favorite} key={favorite.id} id={favorite.id}></LaunchCard>
+                    ))}
+                    </Row>
+                </div>
+
                 <div className="head-wrapper">
                     <div className="subtitle-container">
                         <h2>Upcoming launches</h2>
@@ -128,7 +158,7 @@ class LaunchOverview extends React.Component<{}, any, Props>{
                     <div className="result-wrapper">
                         <Row>
                             {items.map((item :any)=> (
-                                <LaunchCard data={item} key={item.id}></LaunchCard>
+                                <LaunchCard data={item} key={item.id} id={item.id}></LaunchCard>
                             ))}
                         </Row>
 

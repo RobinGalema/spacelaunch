@@ -26,27 +26,27 @@
     }
 }
 
+.favorites-wrapper{
+    h2{
+        margin: 35px 0px 25px;
+    }
+}
+
 .head-wrapper{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 35px 0px 25px 0px;
+    margin: 55px 0px 25px 0px;
 
     .filter-container{
+        display: flex;
+        align-items: center;
         width: max-content;
 
         p{
             display: inline-block;
-            margin-right: 15px;
+            margin:0 15px 0 0;
             font-weight: 500;
-        }
-        
-        select{
-            display: inline-block;
-            border: none;
-            padding: 10px;
-            border-radius: 10px;
-            background: #f4f6fc;
         }
     }
 }

@@ -1,5 +1,5 @@
-.launchcard-wrapper{
-    .card-container{
+.launchcard-wrapper {
+    .card-container {
         margin-bottom: 20px;
         display: grid;
         grid-auto-flow: column;
@@ -8,10 +8,10 @@
         border-radius: 15px;
         background: darken($color: rgb(248, 249, 253), $amount: 1);
 
-        .card-left{
+        .card-left {
             grid-area: image;
 
-            .image-container{
+            .image-container {
                 width: 100%;
                 height: 100%;
                 background-position: top;
@@ -20,34 +20,35 @@
             }
         }
 
-        .card-right{
+        .card-right {
             position: relative;
             grid-area: content;
             padding: 30px;
 
-            .content{
-                p{
+            .content {
+                p {
                     margin: 0px 0px 10px 0px;
                 }
-                
-                .title{
-                    h3{
+
+                .title {
+                    h3 {
                         font-size: 22px;
                         color: #100720;
                         margin-bottom: 10px;
                     }
                 }
 
-                .time{
+                .time {
                     margin-bottom: 20px;
-                    p{
+
+                    p {
                         font-weight: 500;
                         color: lighten($color: #100720, $amount: 5);
                     }
                 }
 
-                .location{
-                    svg{
+                .location {
+                    svg {
                         margin-right: 5px;
                         font-size: 18px;
                         color: #E94560;
@@ -55,24 +56,78 @@
                 }
             }
 
-            button.info{
+            button.favorite {
                 border: none;
                 background: none;
                 position: absolute;
                 top: 25px;
                 right: 25px;
 
-                svg{
-                    color: #100720;
-                    font-size: 18px;
+                svg {
+                    color: darken($color: rgb(248, 249, 253), $amount: 10);
+                    font-size: 20px;
+                    transition: all 300ms ease-out;
+
+                    &:hover {
+                        transform: scale(1.25);
+                        color: gold;
+                    }
+                }
+
+                &.favorited {
+                    svg {
+                        color: gold;
+
+                        &:hover {
+                            color: rgb(170, 50, 50) !important;
+                            transform: scale(1) !important;
+                        }
+                    }
                 }
             }
         }
     }
 }
 
-@media only screen and (max-width: 992px){
-    .launchcard-wrapper{
+@media only screen and (max-width: 992px) {
+    .launchcard-wrapper {
         flex: 100%;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .head-wrapper .filter-container {
+        width: 100%;
+
+        select {
+            width: 100%;
+        }
+    }
+
+    .launchcard-wrapper {
+        .card-container {
+            grid-auto-flow: row;
+            grid-template-columns: none;
+            grid-template-rows: 1fr 1fr;
+            grid-template-areas: 'image''content';
+
+            .card-left .image-container {
+                border-radius: 15px 15px 0px 0px;
+            }
+
+            .card-right {
+                padding: 30px 20px;
+
+                .content {
+                    .title h3 {
+                        font-size: 18px;
+                    }
+                }
+
+                button.info {
+                    display: none;
+                }
+            }
+        }
     }
 }
