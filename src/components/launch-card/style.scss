@@ -110,12 +110,14 @@
             grid-template-columns: none;
             grid-template-rows: 1fr 1fr;
             grid-template-areas: 'image''content';
+            position: relative;
 
             .card-left .image-container {
                 border-radius: 15px 15px 0px 0px;
             }
 
             .card-right {
+                position: initial;
                 padding: 30px 20px;
 
                 .content {
@@ -124,8 +126,14 @@
                     }
                 }
 
-                button.info {
-                    display: none;
+                button.favorite {
+                    right: 10px;
+
+                    svg{
+                        color: white;
+                        width: 30px;
+                        height: 30px;
+                    }
                 }
             }
         }

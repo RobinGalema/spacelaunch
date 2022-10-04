@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
 
 var format = require('date-format');
 
@@ -72,6 +73,12 @@ class LaunchCard extends React.Component<any, any> {
 
         return(
             <Col xs={12} md={6} className="launchcard-wrapper">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ease: "easeOut", duration : 0.5}}
+                >
                 <div className="card-container">
                     <div className="card-left">
                         <div className="image-container" style={{backgroundImage : `url("${this.props.data.image}")` }} />
@@ -94,6 +101,7 @@ class LaunchCard extends React.Component<any, any> {
                         <button className={isFavorite ? "favorite favorited" : "favorite"} onClick={this.toggleFavorite}><FontAwesomeIcon icon={faStar} /></button>
                     </div>
                 </div>
+                </motion.div>
             </Col>
         )
     }

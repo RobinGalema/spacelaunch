@@ -18,6 +18,7 @@
     "babel-plugin-macros": "^3.1.0",
     "bootstrap": "^5.2.1",
     "date-format": "^4.0.14",
+    "framer-motion": "^7.5.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
