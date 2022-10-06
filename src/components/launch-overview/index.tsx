@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Row from 'react-bootstrap/Row';
 import FilterDropdown from '../filter-dropdown';
-import Favorites from '../favorites/favorites';
+import Favorites from '../favorites';
 
 type Props = {
 

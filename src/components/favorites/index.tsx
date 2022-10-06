@@ -7,12 +7,14 @@ type Props = {
 }
 
 class Favorites extends React.Component<{}, any, Props> {
+
     constructor(props : any){
         super(props);
 
         this.state = {
             isLoading: true,
             favorites: [],
+            favoriteIds : null,
             error: null
         }
     }
@@ -40,7 +42,6 @@ class Favorites extends React.Component<{}, any, Props> {
                     this.setState({error: error});
                 })
         }))
-        
     }
 
     render() {
