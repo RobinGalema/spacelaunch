@@ -101,6 +101,7 @@ class LaunchCard extends React.Component<any, any> {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ ease: "easeOut", duration: 0.5 }}
+          className="motion-container"
         >
           <div className="card-container">
             <div className="card-left">
@@ -115,7 +116,7 @@ class LaunchCard extends React.Component<any, any> {
                   <h3>{this.props.data.name}</h3>
                 </div>
                 <div className="time">{time}</div>
-                <div className="rokcet">
+                <div className="rocket">
                   <p>{this.props.data.rocket.configuration.name}</p>
                 </div>
                 <div className="location">
