@@ -111,9 +111,6 @@ class LaunchOverview extends React.Component<{}, any, Props> {
 
     return (
       <div className="container">
-        <div>
-          <p>{`Current Favorites: ${favorites}`}</p>
-        </div>
         <Favorites />
         <div className="head-wrapper">
           <div className="subtitle-container">

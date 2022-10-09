@@ -72,13 +72,13 @@ class LaunchCard extends React.Component<any, any> {
       const index = storedFavorites.indexOf(this.id);
       if (index > -1) storedFavorites.splice(index, 1);
 
+      // Update global state
+      this.context.setFavorites(storedFavorites);
+
       localStorage.setItem("favorites", JSON.stringify(storedFavorites));
 
       // Set state
       this.setState({ isFavorite: false });
-
-      // Update global state
-      this.context.setFavorites(storedFavorites);
     } else if (!this.state.isFavorite) {
       let newArray = [...storedFavorites, ...[this.id]];
       localStorage.setItem("favorites", JSON.stringify(newArray));

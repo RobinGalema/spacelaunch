@@ -29,11 +29,14 @@ class Favorites extends React.Component<{}, any, Props> {
     const newFavorites = this.context.favorites;
     if (this.currentFavorites === newFavorites) return;
 
+    console.log("Updating favorites");
     if (newFavorites.length > this.currentFavorites!.length) {
       this.addSingleFavorite(newFavorites[newFavorites.length - 1]);
+      this.currentFavorites = newFavorites;
+      return;
     }
 
-    this.currentFavorites = newFavorites;
+    this.removeSingleFavorite(newFavorites);
   }
 
   addSingleFavorite = (id: string): void => {
@@ -52,7 +55,25 @@ class Favorites extends React.Component<{}, any, Props> {
       );
   };
 
-  removeSingleFavorite = (id: string): void => {};
+  removeSingleFavorite = (newFavorites: Array<string>): void => {
+    let diff = this.currentFavorites?.filter(
+      (x) => !newFavorites.includes(x)
+    )[0];
+
+    if (!diff) return;
+    this.currentFavorites?.splice(this.currentFavorites.indexOf(diff), 1);
+
+    let deleteIndex = this.state.favorites.findIndex((obj: any) => {
+      return obj.id === diff;
+    });
+
+    let tempArray = this.state.favorites;
+    this.state.favorites.splice(deleteIndex, 1);
+
+    this.setState({
+      favorites: tempArray,
+    });
+  };
 
   loadFavorites = (): void => {
     const favoriteIds = Array.from(
