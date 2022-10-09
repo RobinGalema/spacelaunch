@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/spacelaunch/static/css/main.ab89a9a2.css",
-    "main.js": "/spacelaunch/static/js/main.59efdefe.js",
+    "main.css": "/spacelaunch/static/css/main.ca51e1d3.css",
+    "main.js": "/spacelaunch/static/js/main.d5af4aec.js",
     "index.html": "/spacelaunch/index.html",
-    "main.ab89a9a2.css.map": "/spacelaunch/static/css/main.ab89a9a2.css.map",
-    "main.59efdefe.js.map": "/spacelaunch/static/js/main.59efdefe.js.map"
+    "main.ca51e1d3.css.map": "/spacelaunch/static/css/main.ca51e1d3.css.map",
+    "main.d5af4aec.js.map": "/spacelaunch/static/js/main.d5af4aec.js.map"
   },
   "entrypoints": [
-    "static/css/main.ab89a9a2.css",
-    "static/js/main.59efdefe.js"
+    "static/css/main.ca51e1d3.css",
+    "static/js/main.d5af4aec.js"
   ]
 }
