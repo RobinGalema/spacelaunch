@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BASE_URL } from "../services/global";
 
 export const usePrograms = () => {
   const [programs, setPrograms] = useState(Array<any>);
 
-  const loadPrograms = (url: string, previousResult: any): any => {
+  const loadPrograms = useCallback((url: string, previousResult: any): any => {
     return fetch(url)
       .then((res) => res.json())
       .then((response) => {
@@ -21,11 +21,12 @@ export const usePrograms = () => {
 
         setPrograms(result);
       });
-  };
+  }, []);
 
   useEffect(() => {
     loadPrograms(`${BASE_URL}/program/?format=json&limit=10&offset=0`, []);
-  }, []);
+    console.log("loaded programs");
+  }, [loadPrograms]);
 
   return { programs };
 };

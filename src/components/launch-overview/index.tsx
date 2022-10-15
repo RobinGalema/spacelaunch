@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
 import { FilterDropDown } from "../filter-dropdown";
-import Favorites from "../favorites";
+import { FavoritesFunc } from "../favorites";
 import FavoriteContext from "../../context/FavoriteContext";
 
 type Props = {};
@@ -111,7 +111,7 @@ class LaunchOverview extends React.Component<{}, any, Props> {
 
     return (
       <div className="container">
-        <Favorites />
+        <FavoritesFunc></FavoritesFunc>
         <div className="head-wrapper">
           <div className="subtitle-container">
             <h2>Upcoming launches</h2>

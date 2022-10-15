@@ -33,7 +33,6 @@ export const LaunchCard = (props: Props) => {
     );
     if (storedFavorites.includes(id)) {
       setIsFavorite(true);
-      console.log(id, "is a favorite");
     }
   }, []);
 
