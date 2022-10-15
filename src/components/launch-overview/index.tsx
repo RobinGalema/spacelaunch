@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.scss";
-import LaunchCard from "../launch-card";
+import { LaunchCard } from "../launch-card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
@@ -137,7 +137,11 @@ class LaunchOverview extends React.Component<{}, any, Props> {
           <div className="result-wrapper">
             <Row>
               {items.map((item: any) => (
-                <LaunchCard data={item} key={item.id} id={item.id}></LaunchCard>
+                <LaunchCard
+                  data={item}
+                  key={item.name}
+                  id={item.id}
+                ></LaunchCard>
               ))}
             </Row>
 

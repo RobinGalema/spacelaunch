@@ -1,7 +1,7 @@
 import React from "react";
 import Row from "react-bootstrap/Row";
 import FavoriteContext from "../../context/FavoriteContext";
-import LaunchCard from "../launch-card";
+import { LaunchCard } from "../launch-card";
 
 type Props = {};
 

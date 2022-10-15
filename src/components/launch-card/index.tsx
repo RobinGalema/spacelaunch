@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./style.scss";
 import Col from "react-bootstrap/Col";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,130 +14,109 @@ type Props = {
   id: string;
 };
 
-class LaunchCard extends React.Component<any, any> {
-  static contextType = FavoriteContext;
-  context!: React.ContextType<typeof FavoriteContext>;
+export const LaunchCard = (props: Props) => {
+  const time = props.data.net;
+  let dateString = "";
+  let timezoneOffset = "";
+  const id = props.id;
 
-  time: string;
-  dateString: string;
-  timezoneOffset: string;
-  id: string;
+  const context = useContext(FavoriteContext);
 
-  constructor(props: Props) {
-    super(props);
-    this.time = props.data.net;
-    this.dateString = "";
-    this.timezoneOffset = "";
-    this.id = props.id;
+  const [launchTime, setLaunchTime] = useState(<></>);
+  const [isFavorite, setIsFavorite] = useState(false);
 
-    this.state = {
-      time: false,
-      isFavorite: false,
-    };
-  }
-
-  componentDidMount() {
-    this.getTime();
+  useEffect(() => {
+    getTime();
 
     const storedFavorites = Array.from(
       JSON.parse(localStorage.getItem("favorites") || "{}")
     );
-    if (storedFavorites.includes(this.id)) {
-      this.setState({ isFavorite: true });
+    if (storedFavorites.includes(id)) {
+      setIsFavorite(true);
+      console.log(id, "is a favorite");
     }
-  }
+  }, []);
 
-  getTime = () => {
-    const date = new Date(this.time);
-    this.dateString = format("dd-MM-yyyy @ hh:mm", date);
-    this.timezoneOffset = format("O", date);
+  const getTime = () => {
+    const date = new Date(time);
+    dateString = format("dd-MM-yyyy @ hh:mm", date);
+    timezoneOffset = format("O", date);
 
-    this.setState({
-      time: (
-        <p className="launch-time">
-          {" "}
-          {this.dateString}{" "}
-          <span className="time-zone">(GMT{this.timezoneOffset})</span>
-        </p>
-      ),
-    });
+    setLaunchTime(
+      <p>
+        {" "}
+        {dateString} <span className="time-zone">(GMT{timezoneOffset})</span>
+      </p>
+    );
   };
 
-  toggleFavorite = () => {
+  const toggleFavorite = () => {
     let storedFavorites = Array.from(
       JSON.parse(localStorage.getItem("favorites") || "{}")
     );
 
-    if (this.state.isFavorite) {
-      const index = storedFavorites.indexOf(this.id);
+    if (isFavorite) {
+      const index = storedFavorites.indexOf(id);
       if (index > -1) storedFavorites.splice(index, 1);
 
       // Update global state
-      this.context.setFavorites(storedFavorites);
+      context.setFavorites(storedFavorites);
 
       localStorage.setItem("favorites", JSON.stringify(storedFavorites));
 
       // Set state
-      this.setState({ isFavorite: false });
-    } else if (!this.state.isFavorite) {
-      let newArray = [...storedFavorites, ...[this.id]];
+      setIsFavorite(false);
+    } else if (!isFavorite) {
+      let newArray = [...storedFavorites, ...[id]];
       localStorage.setItem("favorites", JSON.stringify(newArray));
 
       // Set state
-      this.setState({ isFavorite: true });
+      setIsFavorite(true);
 
       // Upate global state
-      this.context.setFavorites(newArray);
+      context.setFavorites(newArray);
     }
   };
 
-  render() {
-    const { time, isFavorite } = this.state;
-
-    return (
-      <Col xs={12} md={6} className="launchcard-wrapper">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ ease: "easeOut", duration: 0.5 }}
-          className="motion-container"
-        >
-          <div className="card-container">
-            <div className="card-left">
-              <div
-                className="image-container"
-                style={{ backgroundImage: `url("${this.props.data.image}")` }}
-              />
-            </div>
-            <div className="card-right">
-              <div className="content">
-                <div className="title">
-                  <h3>{this.props.data.name}</h3>
-                </div>
-                <div className="time">{time}</div>
-                <div className="rocket">
-                  <p>{this.props.data.rocket.configuration.name}</p>
-                </div>
-                <div className="location">
-                  <FontAwesomeIcon icon={faLocationDot} />{" "}
-                  <span className="base">
-                    {this.props.data.pad.location.name}
-                  </span>
-                </div>
-              </div>
-              <button
-                className={isFavorite ? "favorite favorited" : "favorite"}
-                onClick={this.toggleFavorite}
-              >
-                <FontAwesomeIcon icon={faStar} />
-              </button>
-            </div>
+  return (
+    <Col xs={12} md={6} className="launchcard-wrapper">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ ease: "easeOut", duration: 0.5 }}
+        className="motion-container"
+      >
+        <div className="card-container">
+          <div className="card-left">
+            <div
+              className="image-container"
+              style={{ backgroundImage: `url("${props.data.image}")` }}
+            />
           </div>
-        </motion.div>
-      </Col>
-    );
-  }
-}
-
-export default LaunchCard;
+          <div className="card-right">
+            <div className="content">
+              <div className="title">
+                <h3>{props.data.name}</h3>
+              </div>
+              <div className="time">{launchTime}</div>
+              <div className="rocket">
+                <p>{props.data.rocket.configuration.name}</p>
+              </div>
+              <div className="location">
+                <FontAwesomeIcon icon={faLocationDot} />{" "}
+                <span className="base">{props.data.pad.location.name}</span>
+              </div>
+            </div>
+            <button
+              className={isFavorite ? "favorite favorited" : "favorite"}
+              onClick={toggleFavorite}
+            >
+              <FontAwesomeIcon icon={faStar} />
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </Col>
+  );
+};
