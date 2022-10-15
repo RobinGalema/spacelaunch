@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Row from "react-bootstrap/Row";
-import FavoriteContext from "../../context/FavoriteContext";
 import { useFavorites } from "../../hooks/useFavorites";
 import { LaunchCard } from "../launch-card";
 
-export const FavoritesFunc = () => {
+export const Favorites = () => {
   const { favorites, isLoading } = useFavorites();
 
   useEffect(() => {

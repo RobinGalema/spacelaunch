@@ -2,7 +2,7 @@ import React from "react";
 import "./App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AppHeader from "./components/app-header";
-import LaunchOverview from "./components/launch-overview";
+import { LaunchOverview } from "./components/launch-overview";
 import { FavoriteProvider } from "./context/FavoriteContext";
 
 function App() {
