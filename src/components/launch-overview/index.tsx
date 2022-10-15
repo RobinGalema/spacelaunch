@@ -4,7 +4,7 @@ import { LaunchCard } from "../launch-card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Row from "react-bootstrap/Row";
-import FilterDropdown from "../filter-dropdown";
+import { FilterDropDown } from "../filter-dropdown";
 import Favorites from "../favorites";
 import FavoriteContext from "../../context/FavoriteContext";
 
@@ -118,10 +118,10 @@ class LaunchOverview extends React.Component<{}, any, Props> {
           </div>
           <div className="filter-container">
             <p>Filter on program:</p>
-            <FilterDropdown
+            <FilterDropDown
               filterValue={filterValue}
               onChange={this.loadWithFilter}
-            ></FilterDropdown>
+            ></FilterDropDown>
           </div>
         </div>
 
